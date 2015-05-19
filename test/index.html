@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kymera test bench</title>
+</head>
+<body>
+	<div kymera-app="app"></div>
+	<ky-test></ky-test>
+	<script type="text/javascript" src="../lib/dependency.js"></script>
+	<script type="text/javascript">
+		var app = kymera('app');
+
+		/* Dependency Injection
+		app.use('$test', {
+			name: 'test data'
+		});
+
+		app.use('$element', function () {
+			return 'worked';
+		});
+
+		app.fire(function ($element, $test) {
+			console.log(arguments);
+			console.log($element());
+			console.log($test);
+		});
+		*/
+
+		/* Components
+		var TestComponent = kymera.createClass(function (cls) {
+			cls.annotate(new kymera.Component({
+				selector: 'ky-test'
+			}));
+
+			cls.annotate(new kymera.Template({
+				body: '<h1>This is a template</h1>'
+			}));
+
+			return {
+				constructor: function () {
+					console.log('component created');
+				}
+			};
+		});
+
+		app.use(TestComponent);
+		app.mountComponents('body');
+		*/
+
+
+	</script>
+</body>
+</html>
