@@ -7,11 +7,22 @@
 	<div kymera-app="app"></div>
 	<ky-test></ky-test>
 	<script type="text/javascript" src="../lib/vdom.js"></script>
+	<script type="text/javascript" src="../lib/binder.js"></script>
 	<script type="text/javascript">
 		//var app = kymera('app');
 
-		var dom = parseDOM('<h1 class="page-title" a="2"><strong>child</strong>Content</h1><br />');
+		var dom = parseDOM('<h1 class="page-title" a="{{src.name}}"><strong>child</strong>Content</h1><br />');
+	    console.log(JSON.stringify(dom));
+		document.write(JSON.stringify(dom));
 
+		var data = {
+			src: {
+				name: 'Bob'
+			}
+		};
+
+		bindAll(dom, data);
+		console.log(dom);
 		/* Dependency Injection
 		app.use('$test', {
 			name: 'test data'
