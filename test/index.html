@@ -20,14 +20,27 @@
 	<script type="text/javascript" src="../lib/vdom.js"></script>
 	<script type="text/javascript" src="../lib/binder.js"></script>
 	<script type="text/javascript">
-		//var app = kymera('app');
+		var e = document.getElementById('sandbox');
 
-		var left = parseDOM('<h1 class="page-title" test="something else"><i class="icon-something"></i> Welcome</h1><br class="no-change" />');
+		var app = kymera('app');
+
+	    var MyComponent = kymera.createClass(function () {
+			this.annotate(new kymera.Component({
+				selector: 'ky-test'
+			}));
+
+			this.annotate(new kymera.Template({
+				body: '<h1>This is a template</h1>'
+			}));
+	    });
+
+	    app.use(MyComponent);
+
+		/*var left = parseDOM('<h1 class="page-title" test="something else"><i class="icon-something"></i> Welcome</h1><br class="no-change" />');
 		var right = parseDOM('<h1 class="page-changed"><i class="icon-different"></i>Dude <b>^</b> This</h1><br class="no-change" />');
 		document.write('left ' + JSON.stringify(left) + '<br />');
 		document.write('right ' + JSON.stringify(right) + '<br />');
 
-		var e = document.getElementById('sandbox');
 		e.innerHTML = renderToHtmlString(left);
 
 		var diff = diffDOM(left, right);
@@ -35,7 +48,7 @@
 
 		setTimeout(function () {
 			applyPatch(diff, new ElementWrapper(e));
-		}, 5000);
+		}, 5000);*/
 
 		//applyPatch(diff, new ElementWrapper(e));
 
