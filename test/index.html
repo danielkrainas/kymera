@@ -13,7 +13,7 @@
 	</style>
 </head>
 <body>
-	<div kymera-app="app"></div>
+	<div ky-app="app"></div>
 	<ky-test></ky-test>
 	Sandbox:
 	<div id="sandbox"></div>
@@ -22,9 +22,69 @@
 	<script type="text/javascript">
 		var e = document.getElementById('sandbox');
 
-		var app = kymera('app');
+		function run() {
+	    	var app = kymera.module('app', ['kymera.test']);
+	    	app.start();
+		}
+		//var app = kymera('app');
 
-	    var MyComponent = kymera.createClass(function () {
+		kymera
+		.module('kymera.test')
+		.defineClass('TestService', {
+	        attrs: [
+	            /*new kymera.Trait({
+	                name: 'ky-app'
+	            }),
+
+	            new kymera.Component({
+	                name: 'TestService',
+	                mount: function (el) {
+
+	                },
+
+	                link: function (el) {
+
+	                },
+
+	                link: function (el, attrs) {
+	                    var app = kymera.app(attrs.kyApp);
+	                    app.run();
+	                }
+	            }),*/
+
+	            new kymera.Service({
+	                name: 'Something',
+	                //singleton: true
+	            }),
+
+	            /*new kymera.Template({
+	                url: ''
+	            }),*/
+
+	            new kymera.Subscriber({
+	                start: function () {
+
+	                }
+	            })
+	        ],
+
+	        mixins: [],
+
+	        state: {
+	            x: 5
+	        },
+
+	        ctor: function () {
+	        	var that = this;
+	            setTimeout(function () {
+	            	alert(that.getState().x);
+	            }, 1000);
+	        }
+	    });
+
+	    run();
+
+	    /*var MyComponent = kymera.createClass(function () {
 			this.annotate(new kymera.Component({
 				selector: 'ky-test'
 			}));
@@ -32,9 +92,9 @@
 			this.annotate(new kymera.Template({
 				body: '<h1>This is a template</h1>'
 			}));
-	    });
+	    });*/
 
-	    app.use(MyComponent);
+	    /*app.use(MyComponent);*/
 
 		/*var left = parseDOM('<h1 class="page-title" test="something else"><i class="icon-something"></i> Welcome</h1><br class="no-change" />');
 		var right = parseDOM('<h1 class="page-changed"><i class="icon-different"></i>Dude <b>^</b> This</h1><br class="no-change" />');
