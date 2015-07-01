@@ -18,20 +18,61 @@
 	Sandbox:
 	<div id="sandbox"></div>
 	<script type="text/javascript" src="../lib/vdom.js"></script>
-	<script type="text/javascript" src="../lib/binder.js"></script>
+	<script type="text/javascript" src="../lib/kymera.js"></script>
 	<script type="text/javascript">
 		var e = document.getElementById('sandbox');
 
 		function run() {
+			console.log('starting...');
 	    	var app = kymera.module('app', ['kymera.test']);
+	    	console.log(app);
 	    	app.start();
+	    	app.inject(function (MyService) {
+	    		console.log('service initiated');
+	    		console.info(MyService);
+	    	});
 		}
 		//var app = kymera('app');
 
 		kymera
-		.module('kymera.test')
-		.defineClass('TestService', {
-	        attrs: [
+			.module('app')
+			.defineClass('MyService', {
+				attrs: [
+		            new kymera.Service('myService')
+				]
+			});
+
+		kymera
+			.module('kymera.test')
+			.defineClass('TestService', {
+		        attrs: [
+		            new kymera.Subscriber({
+		                start: function (message) {
+		                	console.log('start subscriber executed');
+		                }
+		            }),
+
+		            new kymera.Store({
+		            	state: {
+		            		x: 5
+		            	}
+		            })
+		        ],
+
+		        mixins: [],
+
+		        ctor: function (MyService) {
+		        	console.log('ctor ran');
+		        	console.log(MyService);
+		        	/*var that = this;
+		            setTimeout(function () {
+		            	alert(that.getState().x);
+		            }, 1000);*/
+		        }
+		    });
+
+	    run();
+
 	            /*new kymera.Trait({
 	                name: 'ky-app'
 	            }),
@@ -42,47 +83,15 @@
 
 	                },
 
-	                link: function (el) {
-
-	                },
-
 	                link: function (el, attrs) {
 	                    var app = kymera.app(attrs.kyApp);
 	                    app.run();
 	                }
 	            }),*/
 
-	            new kymera.Service({
-	                name: 'Something',
-	                //singleton: true
-	            }),
-
 	            /*new kymera.Template({
 	                url: ''
 	            }),*/
-
-	            new kymera.Subscriber({
-	                start: function () {
-
-	                }
-	            })
-	        ],
-
-	        mixins: [],
-
-	        state: {
-	            x: 5
-	        },
-
-	        ctor: function () {
-	        	var that = this;
-	            setTimeout(function () {
-	            	alert(that.getState().x);
-	            }, 1000);
-	        }
-	    });
-
-	    run();
 
 	    /*var MyComponent = kymera.createClass(function () {
 			this.annotate(new kymera.Component({
