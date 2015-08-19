@@ -48,6 +48,7 @@
 		        attrs: [
 		            new kymera.Subscriber({
 		                start: function (message) {
+		                	var state = this.getState();
 		                	console.log('start subscriber executed');
 		                }
 		            }),
@@ -61,9 +62,9 @@
 
 		        mixins: [],
 
-		        ctor: function (MyService) {
+		        ctor: function (myService) {
 		        	console.log('ctor ran');
-		        	console.log(MyService);
+		        	console.log(myService);
 		        	/*var that = this;
 		            setTimeout(function () {
 		            	alert(that.getState().x);
